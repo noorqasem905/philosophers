@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:06:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/05/15 21:58:11 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/02 17:47:40 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int					ft_strcmp(char *s1, char *s2);
 int					word_mult_count(char const *s, char c[]);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+long				ft_atoi_long(const char *str);
 char				*ft_itoa(int n);
 char				*ft_strdup(const char *s);
 char				*ft_strchr(const char *s, int c);

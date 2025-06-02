@@ -2,8 +2,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 NAME = philosophers
 
-SRCS = srcs/philosophers.c
-
+SRCS =	srcs/philosophers.c 	\
+		srcs/process_input.c	\
+		srcs/handling_philo.c
 
 all: $(NAME)
 
