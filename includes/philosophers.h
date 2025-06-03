@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/02 16:54:33 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/03 19:25:44 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,19 @@ typedef struct s_data			t_data;
 
 struct							s_philosophers
 {
+	pthread_t					thread;
 	int							id;
 	int							time_to_die;
 	int							time_to_eat;
 	int							time_to_sleep;
 	int							number_of_meals;
-	pthread_mutex_t				*forks;
+	int							forks1;
+	int							forks2;
 	pthread_mutex_t				*print_lock;
 };
 struct							s_data
 {
+	int							iteration;
 	int							number_of_philosophers;
 	int							time_to_die;
 	int							time_to_eat;

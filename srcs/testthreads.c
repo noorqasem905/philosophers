@@ -1,4 +1,4 @@
-# include <stdio.h>
+/* # include <stdio.h>
 # include <pthread.h>
 
 typedef struct s_phoil
@@ -54,4 +54,4 @@ int main()
 		printf("THE thread %d finshed execution\n", 1+i);
 	}
 	printf("%d\n", inc);
-}
+} */
