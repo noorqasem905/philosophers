@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/03 19:25:44 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/11 16:42:46 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ struct							s_philosophers
 	int							time_to_eat;
 	int							time_to_sleep;
 	int							number_of_meals;
-	int							forks1;
-	int							forks2;
+	int							forks1[2];
+	int							forks2[2];
 	pthread_mutex_t				*print_lock;
 };
 struct							s_data

@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:17:56 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/03 21:21:43 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/11 19:22:38 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,31 @@ void *test(void *arg)
 	// int i = ;
 	// while (i < 1000000)
 	{// you have to use the mutex to protect the process and set iteration will not be safe eough
-		printf("Thread %d is running\n", data->iteration);
-		// pthread_mutex_lock(&mutex);// protect process
+	if (data->philosophers->id % 2 == 0)
+	{
+		pthread_mutex_lock(&data->forks[data->philosophers->forks1[0]]);
+		pthread_mutex_lock(&data->forks[data->philosophers->forks2[0]]);
+	}
+	else
+	{
+		pthread_mutex_lock(&data->forks[data->philosophers->forks2[0]]);
+		pthread_mutex_lock(&data->forks[data->philosophers->forks1[0]]);
+	}
+	printf("Philosopher %d has taken forks %d and %d\n",
+		data->philosophers->id, data->philosophers->forks1[0],
+		data->philosophers->forks2[0]);
+	// write
+	write(1, "Philosopher is eating\n", 22);
+	if (data->philosophers->id % 2 == 0)
+	{
+		pthread_mutex_unlock(&data->forks[data->philosophers->forks1[0]]);
+		pthread_mutex_unlock(&data->forks[data->philosophers->forks2[0]]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&data->forks[data->philosophers->forks2[0]]);
+		pthread_mutex_unlock(&data->forks[data->philosophers->forks1[0]]);
+	}
 		// inc++;
 		// pthread_mutex_unlock(&mutex);
 		// i++;
@@ -73,8 +96,10 @@ int thread_creation(t_data *data)
 		data->philosophers[i].time_to_eat = data->time_to_eat;
 		data->philosophers[i].time_to_sleep = data->time_to_sleep;
 		data->philosophers[i].number_of_meals = data->number_of_meals;
-		data->philosophers[i].forks1 = i;
-		data->philosophers[i].forks2 = (i + 1) % data->number_of_philosophers;
+		data->philosophers[i].forks1[0] = i;
+		data->philosophers[i].forks2[0] = (i + 1) % data->number_of_philosophers;
+		data->philosophers[i].forks1[1] = 0;
+		data->philosophers[i].forks2[1] = 0;
 		data->philosophers[i].print_lock = &data->print_lock;
 		if (pthread_create(&data->philosophers[i].thread, NULL, test, data) != 0)
 		{
@@ -115,10 +140,6 @@ int main(int argc, char *argv[])
 		data->iteration++;
 	}
 	// pthread_mutex_destroy(&data->print_lock);
-	{
-		/* code */
-	}
-	
    free(data); 
 	return (0);
 }
