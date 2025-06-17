@@ -34,8 +34,6 @@ clean:
 	$(HIDE)make $(HIDED) -C libft/printf clean
 	$(HIDE)make $(HIDED) -C libft clean
 	$(HIDE)rm -f $(OBJS)
-	$(HIDE)rm -f $(HEADERS)
-	$(HIDE)rm -f $(HEADERS)
 
 fclean:
 	$(HIDE)make $(HIDED) -C libft/printf fclean
