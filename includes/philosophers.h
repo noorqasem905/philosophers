@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/16 16:19:33 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/17 16:23:18 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ struct							s_philosophers
 	int							time_to_eat;
 	int							time_to_sleep;
 	int							last_meal_time;
-	int							last_meal;
+	long						last_meal;
 	int							meals_eaten;
 	int							forks1[2];
 	int							forks2[2];
@@ -53,13 +53,14 @@ struct							s_philosophers
 };
 struct							s_data
 {
-	int							iteration;
+	int							limit_meals;
 	int							number_of_philosophers;
 	int							time_to_die;
 	int							time_to_eat;
 	int							time_to_sleep;
 	int							number_of_meals;
 	int							simulation_has_stopped;
+	long						start_t;
 	pthread_mutex_t				*forks;
 	pthread_mutex_t				*meal_lock;
 	pthread_mutex_t				stop_lock;

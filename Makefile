@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
-NAME = philosophers
+NAME = philo
 
 SRCS =	srcs/philosophers.c 	\
 		srcs/process_input.c	\
@@ -35,10 +35,9 @@ clean:
 	$(HIDE)make $(HIDED) -C libft clean
 	$(HIDE)rm -f $(OBJS)
 
-fclean:
+fclean: clean
 	$(HIDE)make $(HIDED) -C libft/printf fclean
 	$(HIDE)make $(HIDED) -C libft fclean
-	$(HIDE)rm -f $(OBJS)
 	$(HIDE)rm -f $(NAME)
 	$(HIDE)rm -df $(OBJS_DIR)
 
