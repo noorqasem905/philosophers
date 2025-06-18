@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:17:56 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/18 16:27:50 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/18 17:12:12 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	*routine(void *arg)
 {
 	t_philosopher	*philo = (t_philosopher *)arg;
 
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 != 0)
 		usleep(100);
 	while (!simulation_has_stopped(philo))
 	{
