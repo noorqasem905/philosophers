@@ -6,11 +6,11 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:51:56 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/15 17:12:27 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/18 16:22:57 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "../includes/philo.h"
 
 int check_max_number(char *arv)
 {
