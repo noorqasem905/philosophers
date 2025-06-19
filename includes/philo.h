@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/18 17:02:10 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/19 19:48:04 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,32 @@ struct							s_philosophers
 	int							meals_eaten;
 	int							forks1[2];
 	int							forks2[2];
+	int done_eating;
 	pthread_mutex_t				*meal_lock;
 	t_data						*data;
 };
 struct							s_data
 {
-	int							limit_meals;
-	int							number_of_philosophers;
-	int							time_to_die;
-	int							time_to_eat;
-	int							time_to_sleep;
-	int							number_of_meals;
-	int							simulation_has_stopped;
-	long						start_t;
-	pthread_mutex_t				*forks;
-	pthread_mutex_t				*meal_lock;
-	pthread_mutex_t				stop_lock;
-	pthread_mutex_t				print_lock;
-	t_philosopher				*philosophers;
+	int									id;
+	_Atomic int							limit_meals;
+	int									number_of_philosophers;
+	int									time_to_die;
+	int									time_to_eat;
+	int									time_to_sleep;
+	int									number_of_meals;
+	int									simulation_has_stopped;
+	long								start_t;
+	pthread_mutex_t						*forks;
+	pthread_mutex_t						meal_lock;
+	pthread_mutex_t						stop_lock;
+	pthread_mutex_t						meal_limit;
+	pthread_mutex_t						print_lock;
+	t_philosopher						*philosophers;
 };
 long							get_time_in_milliseconds(void);
 long							ft_atoi_long(const char *str);
 int								set_data(t_data *data, int argc, char *argv[]);
+int								simulation_has_stopped(t_philosopher *philo);
 int								check_args(int argc, char *argv[]);
 int       						eating(t_philosopher *philo);
 int								ft_atoi(const char *str);
@@ -78,9 +82,10 @@ void							*handle_error_philo(t_data *data, int code_err,
 void							print_state(t_philosopher *philo, const char *state, int color);
 void			      			usleep_custom(t_philosopher *philo, int time_to_sleep);
 void							check_entered_input(char *arv[], int argc);
+
 void							thinging(t_philosopher *philo);
 void							sleeping(t_philosopher *philo);
-void							take_fork(t_philosopher *philo);
+/*// void							take_fork(t_philosopher *philo);*/
 void							init_data(t_data *data);
 void							*routine(void *arg);
 #endif

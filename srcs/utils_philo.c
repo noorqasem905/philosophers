@@ -48,9 +48,9 @@ long	ft_atoi_long(const char *str)
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	neg;
-	int	c;
+	int i;
+	int neg;
+	int c;
 
 	c = 0;
 	i = 0;

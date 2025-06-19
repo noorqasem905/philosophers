@@ -1,13 +1,14 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread -Iincludes -g#-fsanitize=thread -g
 NAME = philo
 
 SRCS =	srcs/philosophers.c 	\
 		srcs/process_input.c	\
 		srcs/handling_philo.c	\
-		srcs/utils_philo.c
-# srcs/home_philo.c
-# srcs/setup_philo.c.c
+		srcs/setup_philo.c		\
+		srcs/utils_philo.c		\
+		srcs/home_philo.c
+
 all: $(NAME)
 
 LIBS = -lpthread
@@ -19,7 +20,7 @@ HIDE = $(if $(set),, @)
 HIDED = $(if $(DIR),, --no-print-directory)
 
 $(NAME): $(OBJS)
-	$(HIDE)$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -g
+	$(HIDE)$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(OBJS_DIR)/%.o: srcs/%.c 
 	$(HIDE)mkdir -p $(OBJS_DIR)

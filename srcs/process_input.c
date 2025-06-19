@@ -6,16 +6,16 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:51:56 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/18 16:22:57 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/19 20:57:11 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int check_max_number(char *arv)
+int	check_max_number(char *arv)
 {
 	int	num;
-	int i;
+	int	i;
 
 	i = 0;
 	num = 0;
@@ -65,6 +65,8 @@ void	init_data(t_data *data)
 	data->time_to_eat = 0;
 	data->time_to_sleep = 0;
 	data->number_of_meals = -1;
+	data->id = 0;
+	data->limit_meals = -1;
 	data->forks = NULL;
 	data->philosophers = NULL;
 }
