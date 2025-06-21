@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:29:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/22 11:02:57 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/21 19:32:11 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	eating(t_philosopher *philo)
 {
 	if (simulation_has_stopped(philo))
 		return (0);
-	philo->meals_eaten++;
 	pthread_mutex_lock(&philo->data->meal_lock);
 	philo->last_meal = get_time_in_milliseconds() - philo->data->start_t;
 	pthread_mutex_unlock(&philo->data->meal_lock);
+	philo->meals_eaten++;
 	if (philo->data->number_of_meals != -1
-		&& philo->meals_eaten >= philo->data->number_of_meals)
+		&& philo->meals_eaten == philo->data->number_of_meals)
 	{
 		pthread_mutex_lock(&philo->data->meal_limit);
 		philo->data->limit_meals--;
@@ -41,7 +41,6 @@ void	thinging(t_philosopher *philo)
 	printf(GREEN "%ld Philosopher %d is thinking\n" RESET,
 		get_time_in_milliseconds() - philo->data->start_t, philo->id);
 	pthread_mutex_unlock(&philo->data->print_lock);
-	usleep_custom(philo, 1);
 }
 
 void	sleeping(t_philosopher *philo)

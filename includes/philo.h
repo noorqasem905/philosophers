@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/22 11:05:18 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/21 20:11:57 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PHILO_H
 
 # include <pthread.h>
-# include <stdbool.h>
 # include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -37,7 +36,6 @@ struct							s_philosophers
 {
 	pthread_t					thread;
 	int							id;
-	bool						is_dead;
 	int							time_to_die;
 	int							time_to_eat;
 	int							time_to_sleep;
@@ -72,6 +70,7 @@ long							ft_atoi_long(const char *str);
 int								set_data(t_data *data, int argc, char *argv[]);
 int								simulation_has_stopped(t_philosopher *philo);
 int								check_args(int argc, char *argv[]);
+int								free_mutexes(int i, t_data *data);
 int								eating(t_philosopher *philo);
 int								ft_atoi(const char *str);
 int								ft_isdigit(int c);

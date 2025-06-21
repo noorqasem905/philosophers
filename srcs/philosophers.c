@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:17:56 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/22 10:57:12 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/21 19:19:30 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	set_philo_data(t_data *data)
 
 	i = -1;
 	data->start_t = get_time_in_milliseconds();
-	data->limit_meals = data->number_of_meals;
+	data->limit_meals = data->number_of_philosophers;
 	data->simulation_has_stopped = 0;
 	while (++i < data->number_of_philosophers)
 	{
@@ -68,13 +68,13 @@ int	thread_creation(t_data *data)
 	return (0);
 }
 
-void	main_handle(t_data *data)
+void	main_handle(t_data *data, int ret)
 {
 	pthread_mutex_destroy(&data->print_lock);
 	pthread_mutex_destroy(&data->meal_limit);
 	pthread_mutex_destroy(&data->meal_lock);
 	pthread_mutex_destroy(&data->stop_lock);
-	if (data->limit_meals > 0 || data->number_of_meals == -1)
+	if (ret >= 0 && (data->limit_meals > 0 || data->number_of_meals == -1))
 		printf(RED "%ld Philosopher %d has died\n" RESET,
 			get_time_in_milliseconds() - data->start_t, data->id);
 	free(data->forks);
@@ -98,8 +98,6 @@ int	main(int argc, char *argv[])
 	if (setup_mutex_creation(data) < 0)
 		return (-1);
 	ret = thread_creation(data);
-	if (ret < 0)
-		return (-1);
 	i = 0;
 	while (ret >= 0 && i < data->number_of_philosophers)
 	{
@@ -107,6 +105,6 @@ int	main(int argc, char *argv[])
 			break ;
 		i++;
 	}
-	main_handle(data);
+	main_handle(data, ret);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:34:35 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/22 11:01:43 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/21 19:31:38 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	setup_mutex_creation(t_data *data)
 
 	i = -1;
 	data->forks = malloc(sizeof(t_philosopher) * data->number_of_philosophers);
+	if (!data->forks)
+		return (-1);
 	while (++i < (data)->number_of_philosophers)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
@@ -65,13 +67,8 @@ int	setup_mutex_creation(t_data *data)
 			return (-1);
 		}
 	}
-	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
-	{
-		perror("Failed to initialize print mutex");
-		free(data->forks);
-		free(data);
+	if (free_mutexes(i, data) < 0)
 		return (-1);
-	}
 	if (setup_mutex2_creation(data) < 0)
 		return (-1);
 	return (0);
