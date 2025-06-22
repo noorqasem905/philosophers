@@ -7,7 +7,8 @@ SRCS =	srcs/philosophers.c 	\
 		srcs/handling_philo.c	\
 		srcs/setup_philo.c		\
 		srcs/utils_philo.c		\
-		srcs/home_philo.c
+		srcs/home_philo.c		\
+		srcs/routine.c
 
 all: $(NAME)
 

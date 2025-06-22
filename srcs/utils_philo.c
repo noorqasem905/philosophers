@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:23:37 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/18 16:25:07 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/22 10:57:33 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ long	ft_atoi_long(const char *str)
 
 int	ft_atoi(const char *str)
 {
-	int i;
-	int neg;
-	int c;
+	int	i;
+	int	neg;
+	int	c;
 
 	c = 0;
 	i = 0;
