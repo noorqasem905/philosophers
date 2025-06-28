@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:29:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/24 19:29:56 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 00:10:01 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	eating(t_philosopher *philo)
 {
 	if (simulation_has_stopped(philo))
 		return (0);
-	pthread_mutex_lock(&philo->data->meal_lock);
+	pthread_mutex_lock(&philo->data->stop_lock);
 	philo->last_meal = get_time_in_milliseconds() - philo->data->start_t;
-	pthread_mutex_unlock(&philo->data->meal_lock);
+	pthread_mutex_unlock(&philo->data->stop_lock);
 	philo->meals_eaten++;
 	if (philo->data->number_of_meals != -1
 		&& philo->meals_eaten == philo->data->number_of_meals)

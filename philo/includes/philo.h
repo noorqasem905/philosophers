@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/28 18:11:59 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 00:22:38 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ struct							s_philosophers
 	int							meals_eaten;
 	int							forks1[2];
 	int							forks2[2];
-	pthread_mutex_t				*meal_lock;
+	pthread_mutex_t				meal_lock;
 	t_data						*data;
 };
 struct							s_data
@@ -71,7 +71,7 @@ int								set_data(t_data *data, int argc, char *argv[]);
 int								simulation_has_stopped(t_philosopher *philo);
 int								check_args(int argc, char *argv[]);
 int								free_mutexes(int i, t_data *data);
-int								is_died(t_philosopher *philo);
+int								is_died(t_data *data, int i);
 int								eating(t_philosopher *philo);
 int								ft_atoi(const char *str);
 int								ft_isdigit(int c);

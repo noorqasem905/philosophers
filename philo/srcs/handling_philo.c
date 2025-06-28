@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:16:13 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/28 18:50:11 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 00:09:28 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	print_state(t_philosopher *philo, const char *state, int color)
 {
 	if (simulation_has_stopped(philo))
 		return ;
-	pthread_mutex_lock(&philo->data->print_lock);
+	pthread_mutex_lock(&philo->data->stop_lock);
 	philo->last_meal = get_time_in_milliseconds() - philo->data->start_t;
+	pthread_mutex_unlock(&philo->data->stop_lock);
+	pthread_mutex_lock(&philo->data->print_lock);
 	if (color == 1)
 		printf(RED "%ld Philosopher %d %s\n" RESET, get_time_in_milliseconds()
 			- philo->data->start_t, philo->id, state);

@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 11:02:14 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/28 18:14:19 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 00:21:16 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,21 @@ int	handle_one_routine(t_philosopher *philo)
 	return (0);
 }
 
-int	monitor_routine(t_philosopher *philo)
+int	is_died(t_data *data, int i)
 {
-	int	i;
+	long	current_time;
 
-	while (!simulation_has_stopped(philo))
+	current_time = get_time_in_milliseconds() - data->start_t;
+	if (current_time - data->philosophers[i].last_meal
+		> data->philosophers[i].time_to_die
+		|| (data->limit_meals <= 0 && data->number_of_meals != -1))
 	{
-		i = 0;
-		while (i < philo->data->number_of_philosophers)
-		{
-			if (is_died(philo) < 0)
-				return (-1);
-			i++;
-		}
-		usleep(500);
-	}
-	return (0);
-}
-
-int	is_died(t_philosopher *philo)
-{
-	pthread_mutex_lock(&philo->data->stop_lock);
-	if ((philo->data->limit_meals <= 0 && philo->data->number_of_meals
-			!= -1) || philo->last_meal
-		+ philo->time_to_die < get_time_in_milliseconds()
-		- philo->data->start_t)
-	{
-		philo->data->simulation_has_stopped = 1;
-		philo->data->id = philo->id;
-		pthread_mutex_unlock(&philo->data->stop_lock);
+		data->simulation_has_stopped = 1;
+		data->id = data->philosophers[i].id;
+		pthread_mutex_unlock(&data->stop_lock);
+		pthread_mutex_unlock(&data->philosophers[i].meal_lock);
 		return (-1);
 	}
-	pthread_mutex_unlock(&philo->data->stop_lock);
 	return (0);
 }
 
@@ -73,16 +56,10 @@ void	*routine(void *arg)
 	while (!simulation_has_stopped(philo))
 	{
 		take_fork(philo);
-		if (!monitor_routine(philo))
-			return (NULL);
 		if (!simulation_has_stopped(philo))
 			sleeping(philo);
-		if (!monitor_routine(philo))
-			return (NULL);
 		if (!simulation_has_stopped(philo))
 			thinking(philo);
-		if (!monitor_routine(philo))
-			return (NULL);
 	}
 	return (NULL);
 }
