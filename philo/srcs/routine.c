@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 11:02:14 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/29 00:21:16 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 07:51:03 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ int	handle_one_routine(t_philosopher *philo)
 		print_state(philo, "has taken a fork", 9);
 		philo->data->id = philo->id;
 		pthread_mutex_unlock(&philo->data->forks[philo->forks1[0]]);
-		sleeping(philo);
+		while (!simulation_has_stopped(philo))
+		{
+			if (!simulation_has_stopped(philo))
+				sleeping(philo);
+			if (!simulation_has_stopped(philo))
+				thinking(philo);
+		}
 		return (1);
 	}
 	if (philo->id % 2 != 0)

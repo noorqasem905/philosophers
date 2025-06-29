@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:34:35 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/28 23:44:31 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 07:51:35 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,6 @@ void	usleep_custom(t_philosopher *philo, int time_to_sleep)
 	while (!simulation_has_stopped(philo) && get_time_in_milliseconds()
 		- start < time_to_sleep)
 	{
-		if ((get_time_in_milliseconds() - philo->data->start_t
-				- philo->last_meal) >= philo->time_to_die)
-		{
-			pthread_mutex_lock(&philo->data->stop_lock);
-			philo->data->simulation_has_stopped = 1;
-			pthread_mutex_unlock(&philo->data->stop_lock);
-			return ;
-		}
 		usleep(1000);
 	}
 }
