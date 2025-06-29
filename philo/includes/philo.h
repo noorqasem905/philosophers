@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:30 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/29 00:22:38 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 08:24:24 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void							print_state(t_philosopher *philo,
 									const char *state, int color);
 void							usleep_custom(t_philosopher *philo,
 									int time_to_sleep);
+void							mutex_handler(t_data *data, int which);
 void							check_entered_input(char *arv[], int argc);
 void							thinking(t_philosopher *philo);
 void							take_fork(t_philosopher *philo);

@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:34:35 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/29 07:51:35 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 08:27:50 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,17 @@ int	setup_mutex2_creation(t_data *data)
 {
 	if (pthread_mutex_init(&data->stop_lock, NULL) != 0)
 	{
-		perror("Failed to initialize stop mutex");
-		pthread_mutex_destroy(&data->print_lock);
-		free(data->forks);
-		free(data);
+		mutex_handler(data, 2);
 		return (-1);
 	}
 	if (pthread_mutex_init(&data->meal_lock, NULL) != 0)
 	{
-		perror("Failed to initialize stop mutex");
-		pthread_mutex_destroy(&data->print_lock);
-		free(data->forks);
-		free(data);
+		mutex_handler(data, 3);
 		return (-1);
 	}
 	if (pthread_mutex_init(&data->meal_limit, NULL) != 0)
 	{
-		perror("Failed to initialize stop mutex");
-		pthread_mutex_destroy(&data->meal_limit);
-		free(data->forks);
-		free(data);
+		mutex_handler(data, 4);
 		return (-1);
 	}
 	return (0);
@@ -64,9 +55,7 @@ int	setup_mutex_creation(t_data *data)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 		{
-			perror("Failed to initialize mutex for forks");
-			free(data->forks);
-			free(data);
+			mutex_handler(data, 0);
 			return (-1);
 		}
 	}

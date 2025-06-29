@@ -6,25 +6,44 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:16:13 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/29 00:09:28 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 08:28:52 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+void	mutex_handler(t_data *data, int which)
+{
+	int	i;
+
+	i = -1;
+	if (which > 0)
+		printf("Failed to initialize stop mutex\n");
+	else
+		printf("Failed to initialize stop forks\n");
+	if (which > 0)
+		while (++i < data->number_of_philosophers)
+			pthread_mutex_destroy(&data->forks[i]);
+	if (which > 1)
+		pthread_mutex_destroy(&data->print_lock);
+	if (which > 2)
+		pthread_mutex_destroy(&data->stop_lock);
+	if (which > 3)
+		pthread_mutex_destroy(&data->meal_lock);
+	free(data->forks);
+	free(data);
+}
+
 int	free_mutexes(int i, t_data *data)
 {
 	if (i < data->number_of_philosophers)
 	{
-		free(data->forks);
-		free(data);
+		mutex_handler(data, 0);
 		return (-1);
 	}
 	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
 	{
-		perror("Failed to initialize print mutex");
-		free(data->forks);
-		free(data);
+		mutex_handler(data, 1);
 		return (-1);
 	}
 	return (0);

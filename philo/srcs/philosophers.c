@@ -6,7 +6,7 @@
 /*   By: nqasem <nqasem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:17:56 by nqasem            #+#    #+#             */
-/*   Updated: 2025/06/29 00:23:56 by nqasem           ###   ########.fr       */
+/*   Updated: 2025/06/29 08:29:50 by nqasem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	set_philo_data(t_data *data, pthread_t *monitor)
 
 	i = -1;
 	data->limit_meals = data->number_of_philosophers;
-	data->simulation_has_stopped = 0;
 	data->start_t = get_time_in_milliseconds();
 	while (++i < data->number_of_philosophers)
 	{
@@ -61,7 +60,8 @@ int	set_philo_data(t_data *data, pthread_t *monitor)
 				&data->philosophers[i]) != 0)
 			return (-1);
 	}
-	pthread_create(monitor, NULL, monitor_routine, data);
+	if (pthread_create(monitor, NULL, monitor_routine, data) != 0)
+		return (-1);
 	return (0);
 }
 
@@ -75,13 +75,11 @@ int	thread_creation(t_data *data, pthread_t *monitor)
 	if (!data->philosophers)
 	{
 		while (++i < data->number_of_philosophers)
-		{
-			pthread_mutex_destroy(&data->philosophers[i].meal_lock);
 			pthread_mutex_destroy(&data->forks[i]);
-		}
 		return (-1);
 	}
 	i = -1;
+	data->simulation_has_stopped = 0;
 	if (set_philo_data(data, monitor) < 0)
 	{
 		while (++i < data->number_of_philosophers)
@@ -127,14 +125,14 @@ int	main(int argc, char *argv[])
 	if (setup_mutex_creation(data) < 0)
 		return (-1);
 	ret = thread_creation(data, &monitor);
-	i = 0;
-	while (ret >= 0 && i < data->number_of_philosophers)
+	i = -1;
+	while (ret >= 0 && ++i < data->number_of_philosophers)
 	{
 		if (pthread_join(data->philosophers[i].thread, NULL) != 0)
 			break ;
-		i++;
 	}
-	pthread_join(monitor, NULL);
+	if (ret >= 0)
+		pthread_join(monitor, NULL);
 	main_handle(data, ret);
 	return (0);
 }
